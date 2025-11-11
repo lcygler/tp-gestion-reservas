@@ -31,7 +31,7 @@ Asegúrate de tener instalados los siguientes componentes en tu sistema:
 ## Estructura del Proyecto
 
 ```
-tp-final-pv/
+tp-gestion-reservas/
 ├── backend/                  # Aplicación Java Spring Boot
 │   ├── src/
 │   ├── .mvn/                 # Maven Wrapper
