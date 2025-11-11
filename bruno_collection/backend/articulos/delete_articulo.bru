@@ -1,0 +1,19 @@
+meta {
+  name: Delete Articulo
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:8080/api/articulos/11
+  body: none
+  auth: inherit
+}
+
+headers {
+  X-User-ID: {{userId}}
+}
+
+settings {
+  encodeUrl: true
+}

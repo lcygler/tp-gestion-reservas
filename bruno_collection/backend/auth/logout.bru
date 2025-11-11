@@ -1,0 +1,28 @@
+meta {
+  name: Logout
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost/logout
+  body: none
+  auth: none
+}
+
+script:post-response {
+  // Elimina la variable 'userId' del entorno de la colección.
+  bru.deleteVar('userId');
+  
+  console.log("Variable 'userId' eliminada del entorno.");
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Esta petición no realiza una llamada de red real.
+  Su único propósito es ejecutar un script para limpiar la variable 'userId' del entorno de Bruno,
+  efectivamente "cerrando la sesión" dentro del cliente.
+}

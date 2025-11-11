@@ -1,0 +1,167 @@
+#!/bin/sh
+
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+# -----------------------------------------------------------------------------
+# Maven Start Up Script
+#
+# Required ENV vars:
+# ------------------
+#   JAVA_HOME - location of a JDK home dir
+#
+# Optional ENV vars
+# -----------------
+#   MAVEN_OPTS - parameters passed to the Java VM when running Maven
+#     e.g. -Xms256m -Xmx512m
+#   MAVEN_SKIP_RC - flag to disable loading of /etc/mavenrc and ~/.mavenrc
+# -----------------------------------------------------------------------------
+
+# Define a user-friendly name for the script that will be used in messages
+MAVEN_SCRIPT_NAME="mvnw"
+
+# Determine the directory where the script is located
+MAVEN_PROJECT_HOME="$(cd "$(dirname "$0")" && pwd)"
+
+# Use the maximum available, or set MAX_FD != -1 to use that value.
+MAX_FD="maximum"
+
+ulimit -n ${MAX_FD} > /dev/null 2>&1
+
+# OS specific support.  $var _must_ be set to either true or false.
+cydwin=false
+darwin=false
+mingw=false
+case "$(uname)" in
+  CYGWIN*) cygwin=true;; 
+  Darwin*) darwin=true;; 
+  MINGW*) mingw=true;; 
+esac
+
+# Read user-specific configs
+if [ -z "${MAVEN_SKIP_RC}" ] ; then
+  if [ -f /etc/mavenrc ] ; then
+    . /etc/mavenrc
+  fi
+
+  if [ -f "${HOME}/.mavenrc" ] ; then
+    . "${HOME}/.mavenrc"
+  fi
+fi
+
+# Setup the JAVA_HOME
+if [ -z "${JAVA_HOME}" ]; then
+  # Try to find JAVA_HOME in a standardized way.
+  # The JAVA_HOME should point to a JDK installation.
+  # JRE is not enough.
+  if [ "${darwin}" = "true" ]; then
+    if [ -x /usr/libexec/java_home ]; then
+      JAVA_HOME=$(/usr/libexec/java_home)
+    elif [ -d /Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home ]; then
+      JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home
+    fi
+  fi
+fi
+
+if [ -z "${JAVA_HOME}" ]; then
+  # It may be that the user has a JRE installed, which is not sufficient.
+  # Let's try to find a JDK.
+  if [ -d /usr/java/latest ]; then
+    JAVA_HOME=/usr/java/latest
+  fi
+fi
+
+if [ -z "${JAVA_HOME}" ]; then
+  # Fallback to the JRE that might be on the path.
+  # This is not ideal, but it may be better than nothing.
+  if [ -x "$(command -v java)" ]; then
+    JAVA_HOME=$(dirname "$(dirname "$(realpath "$(command -v java)")")")
+  fi
+fi
+
+if [ -z "${JAVA_HOME}" ]; then
+  echo "Error: JAVA_HOME is not set and could not be found." 1>&2
+  exit 1
+fi
+
+# Check if the Java version is compatible.
+if [ -x "${JAVA_HOME}/bin/java" ]; then
+  JAVA_VERSION=$("${JAVA_HOME}/bin/java" -version 2>&1 | awk -F \" '/version/ {print $2}')
+  if [ "${JAVA_VERSION}" = "" ]; then
+    # Fallback for Java 9+
+    JAVA_VERSION=$("${JAVA_HOME}/bin/java" -version 2>&1 | awk -F \" '/version/ {print $2}')
+  fi
+  if [ "${JAVA_VERSION}" = "" ]; then
+    # Fallback for Java 11+
+    JAVA_VERSION=$("${JAVA_HOME}/bin/java" -version 2>&1 | awk -F \" '/version/ {print $2}')
+  fi
+  if [ "${JAVA_VERSION}" = "" ]; then
+    # Fallback for Java 17+
+    JAVA_VERSION=$("${JAVA_HOME}/bin/java" -version 2>&1 | awk -F \" '/version/ {print $2}')
+  fi
+  if [ "${JAVA_VERSION}" = "" ]; then
+    # Fallback for Java 21+
+    JAVA_VERSION=$("${JAVA_HOME}/bin/java" -version 2>&1 | awk -F \" '/version/ {print $2}')
+  fi
+  if [ "${JAVA_VERSION}" = "" ]; then
+    echo "Error: Could not determine Java version." 1>&2
+    exit 1
+  fi
+  # Check if the version is at least 1.8
+  JAVA_MAJOR_VERSION=$(echo "${JAVA_VERSION}" | cut -d. -f1)
+  if [ "${JAVA_MAJOR_VERSION}" -lt 8 ]; then
+    echo "Error: Java version is too old. Please use Java 8 or newer." 1>&2
+    exit 1
+  fi
+fi
+
+# Set the MAVEN_HOME
+MAVEN_HOME="${MAVEN_PROJECT_HOME}/.mvn/wrapper/maven-3.9.6"
+
+# Set the MAVEN_LAUNCHER_JAR
+MAVEN_LAUNCHER_JAR="${MAVEN_PROJECT_HOME}/.mvn/wrapper/maven-wrapper.jar"
+
+# Download the wrapper jar if it does not exist
+if [ ! -f "${MAVEN_LAUNCHER_JAR}" ]; then
+  echo "Downloading ${WRAPPER_URL}"
+  if [ ! -d "${MAVEN_PROJECT_HOME}/.mvn/wrapper" ]; then
+    mkdir -p "${MAVEN_PROJECT_HOME}/.mvn/wrapper"
+  fi
+  if [ -x "$(command -v curl)" ]; then
+    curl -L "${WRAPPER_URL}" -o "${MAVEN_LAUNCHER_JAR}"
+  elif [ -x "$(command -v wget)" ]; then
+    wget "${WRAPPER_URL}" -O "${MAVEN_LAUNCHER_JAR}"
+  else
+    echo "Error: Neither curl nor wget are available to download the wrapper jar." 1>&2
+    exit 1
+  fi
+fi
+
+# Set the MAVEN_MAIN_CLASS
+MAVEN_MAIN_CLASS=org.apache.maven.wrapper.MavenWrapperMain
+
+# Set the MAVEN_LAUNCHER_CLASS
+MAVEN_LAUNCHER_CLASS=org.apache.maven.wrapper.MavenWrapperMain
+
+# Run Maven
+"${JAVA_HOME}/bin/java" \
+  ${MAVEN_OPTS} \
+  -classpath "${MAVEN_LAUNCHER_JAR}" \
+  "-Dmaven.home=${MAVEN_HOME}" \
+  "-Dmaven.multiModuleProjectDirectory=${MAVEN_PROJECT_HOME}" \
+  ${MAVEN_MAIN_CLASS} \
+  "$@"

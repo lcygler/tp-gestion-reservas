@@ -1,0 +1,19 @@
+meta {
+  name: Delete Reserva
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:8080/api/reservas/111
+  body: none
+  auth: inherit
+}
+
+headers {
+  X-User-ID: {{userId}}
+}
+
+settings {
+  encodeUrl: true
+}

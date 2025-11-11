@@ -1,0 +1,26 @@
+meta {
+  name: Create Articulo
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/articulos
+  body: json
+  auth: inherit
+}
+
+headers {
+  X-User-ID: {{userId}}
+}
+
+body:json {
+  {
+    "nombre": "Laptop para Préstamo",
+    "descripcion": "Laptop Dell con 16GB RAM"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

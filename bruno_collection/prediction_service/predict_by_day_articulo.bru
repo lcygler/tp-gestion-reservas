@@ -1,0 +1,20 @@
+meta {
+  name: Predict By Day for Articulo
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:5000/predict?type=by_day&articulo_id=1
+  body: none
+  auth: inherit
+}
+
+params:query {
+  type: by_day
+  articulo_id: 1
+}
+
+settings {
+  encodeUrl: true
+}

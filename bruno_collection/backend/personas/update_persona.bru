@@ -1,0 +1,28 @@
+meta {
+  name: Update Persona
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/personas/11
+  body: json
+  auth: inherit
+}
+
+headers {
+  X-User-ID: {{userId}}
+}
+
+body:json {
+  {
+    "nombre": "Usuario Actualizado",
+    "email": "actualizado.usuario@example.com",
+    "password": "newpassword",
+    "rol": "USER"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

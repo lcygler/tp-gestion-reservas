@@ -1,0 +1,32 @@
+meta {
+  name: Update Reserva
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/reservas/111
+  body: json
+  auth: inherit
+}
+
+headers {
+  X-User-ID: {{userId}}
+}
+
+body:json {
+  {
+    "persona": {
+      "id": 1
+    },
+    "sala": {
+      "id": 1
+    },
+    "fechaHoraInicio": "2025-12-26T14:00:00",
+    "fechaHoraFin": "2025-12-26T15:30:00"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

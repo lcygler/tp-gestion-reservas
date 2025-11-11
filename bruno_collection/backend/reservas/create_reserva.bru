@@ -1,0 +1,28 @@
+meta {
+  name: Create Reserva
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/reservas
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "persona": {
+      "id": 1
+    },
+    "sala": {
+      "id": 1
+    },
+    "fechaHoraInicio": "2025-12-25T10:00:00",
+    "fechaHoraFin": "2025-12-25T11:00:00"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

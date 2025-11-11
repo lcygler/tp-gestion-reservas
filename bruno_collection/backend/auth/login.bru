@@ -1,0 +1,30 @@
+meta {
+  name: Login
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/auth/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email": "ana.perez@organizacion.com",
+    "password": "admin123"
+  }
+}
+
+script:post-response {
+  // Extract the user ID from the response and save it as a collection variable
+  const responseBody = res.getBody();
+  if (responseBody && responseBody.id) {
+    bru.setVar('userId', responseBody.id);
+  }
+}
+
+settings {
+  encodeUrl: true
+}

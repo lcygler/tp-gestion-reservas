@@ -1,0 +1,27 @@
+meta {
+  name: Create Sala
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/salas
+  body: json
+  auth: inherit
+}
+
+headers {
+  X-User-ID: {{userId}}
+}
+
+body:json {
+  {
+    "nombre": "Nueva Sala de Reuniones",
+    "capacidad": 15,
+    "recursos": "Proyector, Pizarra"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

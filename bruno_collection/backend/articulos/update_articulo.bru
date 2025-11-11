@@ -1,0 +1,26 @@
+meta {
+  name: Update Articulo
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/articulos/11
+  body: json
+  auth: inherit
+}
+
+headers {
+  X-User-ID: {{userId}}
+}
+
+body:json {
+  {
+    "nombre": "Laptop para Préstamo (Actualizada)",
+    "descripcion": "Laptop HP con 32GB RAM"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

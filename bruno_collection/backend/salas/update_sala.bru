@@ -1,0 +1,27 @@
+meta {
+  name: Update Sala
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/salas/11
+  body: json
+  auth: inherit
+}
+
+headers {
+  X-User-ID: {{userId}}
+}
+
+body:json {
+  {
+    "nombre": "Sala de Reuniones Actualizada",
+    "capacidad": 20,
+    "recursos": "Proyector, Pizarra, Videoconferencia"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
